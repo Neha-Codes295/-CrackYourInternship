@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int subarraysDivByK(std::vector<int>& nums, int k) {
+        unordered_map<int, int> prefixCount;
+        prefixCount[0] = 1; 
+        int sum = 0;
+        int count = 0;
+        for (int num : nums) {
+            sum = (sum + num) % k;
+            if (sum < 0) sum += k; 
+            if (prefixCount.count(sum)) {
+                count += prefixCount[sum];
+            }
+            prefixCount[sum]++;
+        }
+        return count;
+    }
+};
