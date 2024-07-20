@@ -1,0 +1,41 @@
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        vector<int> ans;
+        if (matrix.empty()) return ans; 
+        int row = matrix.size();
+        int col = matrix[0].size();
+        int cnt = 0;
+        int t = row * col;
+        int sRow = 0;
+        int sCol = 0;
+        int eRow = row - 1;
+        int eCol = col - 1;
+        while (cnt < t) {
+            for (int index = sCol; cnt < t && index <= eCol; index++) {
+                ans.push_back(matrix[sRow][index]);
+                cnt++;
+            }
+            sRow++;
+            for (int index = sRow; cnt < t && index <= eRow; index++) {
+                ans.push_back(matrix[index][eCol]);
+                cnt++;
+            }
+            eCol--;
+            for (int index = eCol; cnt < t && index >= sCol; index--) {
+                ans.push_back(matrix[eRow][index]);
+                cnt++;
+            }
+            eRow--;
+            for (int index = eRow; cnt < t && index >= sRow; index--) {
+                ans.push_back(matrix[index][sCol]);
+                cnt++;
+            }
+            sCol++;
+        }
+        return ans;
+    }
+};
