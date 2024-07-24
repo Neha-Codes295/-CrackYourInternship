@@ -1,0 +1,51 @@
+class Solution {
+public:
+ bool is_possible(vector<int>&stall, int dis, int k){
+        int x=1; int next=stall[0]+dis;
+        
+        
+        int n=stall.size();
+        for(int i=1; i<n; i++){
+            if(stall[i]>=next){
+                x++;
+                
+                next=stall[i]+dis;
+            }
+        }
+        
+        if(x>=k)return true;
+        
+        return false;
+    }
+    
+    
+
+    int solve(int n, int k, vector<int> &chai) {
+    
+        vector<int>stall=chai;
+        sort(stall.begin(),stall.end());
+        int ans=0;
+        int l=1; int h=1e9;
+        
+        while(l<=h){
+            int mid=l+(h-l)/2;
+            
+            bool pos=is_possible(stall, mid, k);
+            
+            if(pos){
+                l=mid+1;
+                
+                ans=mid;
+                
+            }else{
+                h=mid-1;
+            }
+            
+        }
+        return ans;
+        
+    }
+
+
+ 
+};
