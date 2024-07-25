@@ -1,0 +1,58 @@
+class Node 
+{ 
+    public:
+    int data; 
+    Node* next; 
+}; 
+void sortList(Node *head) 
+{ 
+    int count[3] = {0, 0, 0}; 
+    Node *ptr = head; 
+    while (ptr != NULL) 
+    { 
+        count[ptr->data] += 1; 
+        ptr = ptr->next; 
+    } 
+ 
+    int i = 0; 
+    ptr = head; 
+    while (ptr != NULL) 
+    { 
+        if (count[i] == 0) 
+            ++i; 
+        else
+        { 
+            ptr->data = i; 
+            --count[i]; 
+            ptr = ptr->next; 
+        } 
+    } 
+} 
+ 
+/* Function to push a node */
+void push (Node** head_ref, int new_data) 
+{ 
+    /* allocate node */
+    Node* new_node = new Node();
+ 
+    /* put in the data */
+    new_node->data = new_data; 
+ 
+    /* link the old list of the new node */
+    new_node->next = (*head_ref); 
+ 
+    /* move the head to point to the new node */
+    (*head_ref) = new_node; 
+} 
+ 
+/* Function to print linked list */
+void printList(Node *node) 
+{ 
+    while (node != NULL) 
+    { 
+        cout << node->data << " "; 
+        node = node->next; 
+    } 
+    cout << endl; 
+} 
+ 
