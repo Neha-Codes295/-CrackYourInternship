@@ -1,0 +1,31 @@
+class solution{
+int minCostToBreakChocolate(int m, int n, vector<int>& verticalCosts, vector<int>& horizontalCosts) {
+    // Sort costs in descending order
+    sort(verticalCosts.rbegin(), verticalCosts.rend());
+    sort(horizontalCosts.rbegin(), horizontalCosts.rend());
+    
+    int totalCost = 0;
+    int numVerticalBreaks = 1;
+    int numHorizontalBreaks = 1;
+
+    size_t vIdx = 0;
+    size_t hIdx = 0;
+
+    // Process both cost arrays
+    while (vIdx < verticalCosts.size() || hIdx < horizontalCosts.size()) {
+        if (hIdx == horizontalCosts.size() || (vIdx < verticalCosts.size() && verticalCosts[vIdx] > horizontalCosts[hIdx])) {
+            // Apply vertical break
+            totalCost += verticalCosts[vIdx] * numHorizontalBreaks;
+            ++numVerticalBreaks;
+            ++vIdx;
+        } else {
+            // Apply horizontal break
+            totalCost += horizontalCosts[hIdx] * numVerticalBreaks;
+            ++numHorizontalBreaks;
+            ++hIdx;
+        }
+    }
+    
+    return totalCost;
+}
+};
