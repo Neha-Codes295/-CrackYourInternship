@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int maxProfit(int k, vector<int>& prices) {
+        //T.C.: O(N*k) S.C.: O(k)
+
+        int n = prices.size();
+        
+        if (n == 0 || k == 0) {
+            return 0;
+        }
+        
+        // Initialize arrays to track the maximum profit after each transaction
+        int buyPrice[k];
+        int profit[k];
+        
+        // Initialize buy prices to represent the highest possible integer value initially
+        for (int i = 0; i < k; i++) {
+            buyPrice[i] = INT_MAX;
+            profit[i] = INT_MIN;
+        }
+        
+        for (int price : prices) {
+            
+            //Loop is needed for dealing with k transactions.
+
+            for (int i = 0; i < k; i++) {
+                // Update buy[i] and profit[i] for each transaction
+
+                buyPrice[i] = min(buyPrice[i], price - (i > 0 ? profit[i - 1] : 0));
+                profit[i] = max(profit[i], price - buyPrice[i]);
+            }
+
+        }
+        
+        return profit[k - 1];
+    }
+};
