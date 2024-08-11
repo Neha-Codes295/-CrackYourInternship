@@ -1,4 +1,4 @@
-class Solution { // 4 ms, faster than 89.31%
+class Solution { 
 public:
     int trap(vector<int>& height) {
         int n = height.size();
