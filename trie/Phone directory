@@ -1,0 +1,29 @@
+class Solution{
+public:
+    vector<vector<string>> displayContacts(int n, string contact[], string s)
+    {
+        // code here
+        vector<vector<string>> ans;
+        vector<int> flag(n, 1);
+        for(int i = 0; i < s.size(); i++)
+        {
+            char character = s[i];
+            set<string> Set;
+            for(int j = 0; j < n; j++)
+            {
+                if(contact[j].size() > i && contact[j][i] == character && flag[j])
+                    Set.insert(contact[j]);
+                else
+                    flag[j] = 0;
+            }
+            if(Set.empty())
+                ans.push_back({"0"});
+            else
+            {
+                vector<string> temp(Set.begin(), Set.end());
+                ans.push_back(temp);
+            }
+        }
+        return ans;
+    }
+};
