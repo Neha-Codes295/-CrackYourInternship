@@ -1,0 +1,49 @@
+class Solution
+{
+	public:
+	//Function to return list containing vertices in Topological order. 
+	vector<int> topoSort(int V, vector<int> adj[]){
+	    
+	    // Step 1: Store the indegree of each element
+	    int indegree[V] = {0};
+	    for(int u=0; u<V; u++){
+	        for(auto &v : adj[u]){
+	            indegree[v]++;
+	        }
+	    }
+	    
+	    // Step 2: Push all nodes with indegree 0 to queue
+	    queue<int> q;
+	    for(int i=0; i<V; i++){
+	        if(indegree[i] == 0)
+	           q.push(i);
+	    }
+	    
+	    // Step 3: BFS
+	    vector<int> topo;
+	    while(!q.empty()){
+	        
+	        int node = q.front();
+	        q.pop();
+	        
+	        topo.push_back(node);
+	        
+	        // node is in your topo sort so 
+	        // now remove it from indegree
+	        
+	        for(auto &it : adj[node]){
+	            
+	            indegree[it]--;
+	            
+	            if(indegree[it] == 0)
+	               q.push(it);
+	            
+	        }
+	        
+	        
+	    }
+	    
+	    return topo;
+	    
+	}
+};
